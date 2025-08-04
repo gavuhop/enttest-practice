@@ -67,11 +67,29 @@ var (
 		Columns:    TranslationsColumns,
 		PrimaryKey: []*schema.Column{TranslationsColumns[0]},
 	}
+	// UsersColumns holds the columns for the "users" table.
+	UsersColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "username", Type: field.TypeString, Unique: true},
+		{Name: "email", Type: field.TypeString, Unique: true},
+		{Name: "password_hash", Type: field.TypeString},
+		{Name: "full_name", Type: field.TypeString, Nullable: true},
+		{Name: "is_active", Type: field.TypeBool, Default: true},
+		{Name: "created_at", Type: field.TypeTime},
+		{Name: "updated_at", Type: field.TypeTime},
+	}
+	// UsersTable holds the schema information for the "users" table.
+	UsersTable = &schema.Table{
+		Name:       "users",
+		Columns:    UsersColumns,
+		PrimaryKey: []*schema.Column{UsersColumns[0]},
+	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
 		LanguageDetectionsTable,
 		TranscriptionStatsTable,
 		TranslationsTable,
+		UsersTable,
 	}
 )
 

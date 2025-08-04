@@ -4,7 +4,9 @@ import (
 	"context"
 	"ent/ent"
 	"ent/service"
+	"fmt"
 	"log"
+	"time"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -31,7 +33,9 @@ func main() {
 			"extras":     map[string]interface{}{"note": "greeting"},
 		},
 	}
-	tr, err := service.CreateTranslation(ctx, client, "Hello", "ext123", "en-vi", "owner1", choices)
+	// Tạo external_id unique dựa trên timestamp
+	externalID := fmt.Sprintf("ext_%d", time.Now().Unix())
+	tr, err := service.CreateTranslation(ctx, client, "Hello", externalID, "en-vi", "owner1", choices)
 	if err != nil {
 		log.Fatalf("create translation failed: %v", err)
 	}

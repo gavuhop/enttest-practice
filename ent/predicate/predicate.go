@@ -14,3 +14,6 @@ type TranscriptionStats func(*sql.Selector)
 
 // Translation is the predicate function for translation builders.
 type Translation func(*sql.Selector)
+
+// User is the predicate function for user builders.
+type User func(*sql.Selector)

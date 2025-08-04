@@ -14,5 +14,19 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     volumes:
       - mysql_data:/var/lib/mysql
+
+  app:
+    build: .
+    container_name: ent-app
+    depends_on:
+      - mysql
+    environment:
+      DB_URL: "mysql://user:password@mysql:3306/dbname"
+    command: ["sh", "-c", "./migration.sh && go run main.go"]
+    volumes:
+      - .:/app
+    ports:
+      - "9999:8080"
+
 volumes:
   mysql_data:

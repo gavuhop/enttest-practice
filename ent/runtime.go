@@ -6,6 +6,8 @@ import (
 	"ent/ent/languagedetection"
 	"ent/ent/schema"
 	"ent/ent/transcriptionstats"
+	"ent/ent/user"
+	"time"
 )
 
 // The init function reads all schema descriptors with runtime code
@@ -24,4 +26,32 @@ func init() {
 	transcriptionstatsDescModelName := transcriptionstatsFields[3].Descriptor()
 	// transcriptionstats.ModelNameValidator is a validator for the "model_name" field. It is called by the builders before save.
 	transcriptionstats.ModelNameValidator = transcriptionstatsDescModelName.Validators[0].(func(string) error)
+	userFields := schema.User{}.Fields()
+	_ = userFields
+	// userDescUsername is the schema descriptor for username field.
+	userDescUsername := userFields[0].Descriptor()
+	// user.UsernameValidator is a validator for the "username" field. It is called by the builders before save.
+	user.UsernameValidator = userDescUsername.Validators[0].(func(string) error)
+	// userDescEmail is the schema descriptor for email field.
+	userDescEmail := userFields[1].Descriptor()
+	// user.EmailValidator is a validator for the "email" field. It is called by the builders before save.
+	user.EmailValidator = userDescEmail.Validators[0].(func(string) error)
+	// userDescPasswordHash is the schema descriptor for password_hash field.
+	userDescPasswordHash := userFields[2].Descriptor()
+	// user.PasswordHashValidator is a validator for the "password_hash" field. It is called by the builders before save.
+	user.PasswordHashValidator = userDescPasswordHash.Validators[0].(func(string) error)
+	// userDescIsActive is the schema descriptor for is_active field.
+	userDescIsActive := userFields[4].Descriptor()
+	// user.DefaultIsActive holds the default value on creation for the is_active field.
+	user.DefaultIsActive = userDescIsActive.Default.(bool)
+	// userDescCreatedAt is the schema descriptor for created_at field.
+	userDescCreatedAt := userFields[5].Descriptor()
+	// user.DefaultCreatedAt holds the default value on creation for the created_at field.
+	user.DefaultCreatedAt = userDescCreatedAt.Default.(func() time.Time)
+	// userDescUpdatedAt is the schema descriptor for updated_at field.
+	userDescUpdatedAt := userFields[6].Descriptor()
+	// user.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	user.DefaultUpdatedAt = userDescUpdatedAt.Default.(func() time.Time)
+	// user.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	user.UpdateDefaultUpdatedAt = userDescUpdatedAt.UpdateDefault.(func() time.Time)
 }

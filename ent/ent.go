@@ -7,6 +7,7 @@ import (
 	"ent/ent/languagedetection"
 	"ent/ent/transcriptionstats"
 	"ent/ent/translation"
+	"ent/ent/user"
 	"errors"
 	"fmt"
 	"reflect"
@@ -78,6 +79,7 @@ func checkColumn(t, c string) error {
 			languagedetection.Table:  languagedetection.ValidColumn,
 			transcriptionstats.Table: transcriptionstats.ValidColumn,
 			translation.Table:        translation.ValidColumn,
+			user.Table:               user.ValidColumn,
 		})
 	})
 	return columnCheck(t, c)
