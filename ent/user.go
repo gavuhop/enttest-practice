@@ -32,7 +32,9 @@ type User struct {
 	// UpdatedAt holds the value of the "updated_at" field.
 	UpdatedAt time.Time `json:"updated_at,omitempty"`
 	// Role holds the value of the "role" field.
-	Role         string `json:"role,omitempty"`
+	Role string `json:"role,omitempty"`
+	// ExternalID holds the value of the "external_id" field.
+	ExternalID   string `json:"external_id,omitempty"`
 	selectValues sql.SelectValues
 }
 
@@ -45,7 +47,7 @@ func (*User) scanValues(columns []string) ([]any, error) {
 			values[i] = new(sql.NullBool)
 		case user.FieldID:
 			values[i] = new(sql.NullInt64)
-		case user.FieldUsername, user.FieldEmail, user.FieldPasswordHash, user.FieldFullName, user.FieldRole:
+		case user.FieldUsername, user.FieldEmail, user.FieldPasswordHash, user.FieldFullName, user.FieldRole, user.FieldExternalID:
 			values[i] = new(sql.NullString)
 		case user.FieldCreatedAt, user.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
@@ -118,6 +120,12 @@ func (_m *User) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				_m.Role = value.String
 			}
+		case user.FieldExternalID:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field external_id", values[i])
+			} else if value.Valid {
+				_m.ExternalID = value.String
+			}
 		default:
 			_m.selectValues.Set(columns[i], values[i])
 		}
@@ -177,6 +185,9 @@ func (_m *User) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("role=")
 	builder.WriteString(_m.Role)
+	builder.WriteString(", ")
+	builder.WriteString("external_id=")
+	builder.WriteString(_m.ExternalID)
 	builder.WriteByte(')')
 	return builder.String()
 }

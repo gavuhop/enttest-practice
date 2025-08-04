@@ -130,6 +130,20 @@ func (_u *UserUpdate) ClearRole() *UserUpdate {
 	return _u
 }
 
+// SetExternalID sets the "external_id" field.
+func (_u *UserUpdate) SetExternalID(v string) *UserUpdate {
+	_u.mutation.SetExternalID(v)
+	return _u
+}
+
+// SetNillableExternalID sets the "external_id" field if the given value is not nil.
+func (_u *UserUpdate) SetNillableExternalID(v *string) *UserUpdate {
+	if v != nil {
+		_u.SetExternalID(*v)
+	}
+	return _u
+}
+
 // Mutation returns the UserMutation object of the builder.
 func (_u *UserUpdate) Mutation() *UserMutation {
 	return _u.mutation
@@ -193,6 +207,11 @@ func (_u *UserUpdate) check() error {
 			return &ValidationError{Name: "role", err: fmt.Errorf(`ent: validator failed for field "User.role": %w`, err)}
 		}
 	}
+	if v, ok := _u.mutation.ExternalID(); ok {
+		if err := user.ExternalIDValidator(v); err != nil {
+			return &ValidationError{Name: "external_id", err: fmt.Errorf(`ent: validator failed for field "User.external_id": %w`, err)}
+		}
+	}
 	return nil
 }
 
@@ -234,6 +253,9 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	}
 	if _u.mutation.RoleCleared() {
 		_spec.ClearField(user.FieldRole, field.TypeString)
+	}
+	if value, ok := _u.mutation.ExternalID(); ok {
+		_spec.SetField(user.FieldExternalID, field.TypeString, value)
 	}
 	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
@@ -357,6 +379,20 @@ func (_u *UserUpdateOne) ClearRole() *UserUpdateOne {
 	return _u
 }
 
+// SetExternalID sets the "external_id" field.
+func (_u *UserUpdateOne) SetExternalID(v string) *UserUpdateOne {
+	_u.mutation.SetExternalID(v)
+	return _u
+}
+
+// SetNillableExternalID sets the "external_id" field if the given value is not nil.
+func (_u *UserUpdateOne) SetNillableExternalID(v *string) *UserUpdateOne {
+	if v != nil {
+		_u.SetExternalID(*v)
+	}
+	return _u
+}
+
 // Mutation returns the UserMutation object of the builder.
 func (_u *UserUpdateOne) Mutation() *UserMutation {
 	return _u.mutation
@@ -433,6 +469,11 @@ func (_u *UserUpdateOne) check() error {
 			return &ValidationError{Name: "role", err: fmt.Errorf(`ent: validator failed for field "User.role": %w`, err)}
 		}
 	}
+	if v, ok := _u.mutation.ExternalID(); ok {
+		if err := user.ExternalIDValidator(v); err != nil {
+			return &ValidationError{Name: "external_id", err: fmt.Errorf(`ent: validator failed for field "User.external_id": %w`, err)}
+		}
+	}
 	return nil
 }
 
@@ -491,6 +532,9 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 	}
 	if _u.mutation.RoleCleared() {
 		_spec.ClearField(user.FieldRole, field.TypeString)
+	}
+	if value, ok := _u.mutation.ExternalID(); ok {
+		_spec.SetField(user.FieldExternalID, field.TypeString, value)
 	}
 	_node = &User{config: _u.config}
 	_spec.Assign = _node.assignValues

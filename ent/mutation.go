@@ -2463,6 +2463,7 @@ type UserMutation struct {
 	created_at    *time.Time
 	updated_at    *time.Time
 	role          *string
+	external_id   *string
 	clearedFields map[string]struct{}
 	done          bool
 	oldValue      func(context.Context) (*User, error)
@@ -2881,6 +2882,42 @@ func (m *UserMutation) ResetRole() {
 	delete(m.clearedFields, user.FieldRole)
 }
 
+// SetExternalID sets the "external_id" field.
+func (m *UserMutation) SetExternalID(s string) {
+	m.external_id = &s
+}
+
+// ExternalID returns the value of the "external_id" field in the mutation.
+func (m *UserMutation) ExternalID() (r string, exists bool) {
+	v := m.external_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldExternalID returns the old "external_id" field's value of the User entity.
+// If the User object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *UserMutation) OldExternalID(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldExternalID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldExternalID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldExternalID: %w", err)
+	}
+	return oldValue.ExternalID, nil
+}
+
+// ResetExternalID resets all changes to the "external_id" field.
+func (m *UserMutation) ResetExternalID() {
+	m.external_id = nil
+}
+
 // Where appends a list predicates to the UserMutation builder.
 func (m *UserMutation) Where(ps ...predicate.User) {
 	m.predicates = append(m.predicates, ps...)
@@ -2915,7 +2952,7 @@ func (m *UserMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *UserMutation) Fields() []string {
-	fields := make([]string, 0, 8)
+	fields := make([]string, 0, 9)
 	if m.username != nil {
 		fields = append(fields, user.FieldUsername)
 	}
@@ -2939,6 +2976,9 @@ func (m *UserMutation) Fields() []string {
 	}
 	if m.role != nil {
 		fields = append(fields, user.FieldRole)
+	}
+	if m.external_id != nil {
+		fields = append(fields, user.FieldExternalID)
 	}
 	return fields
 }
@@ -2964,6 +3004,8 @@ func (m *UserMutation) Field(name string) (ent.Value, bool) {
 		return m.UpdatedAt()
 	case user.FieldRole:
 		return m.Role()
+	case user.FieldExternalID:
+		return m.ExternalID()
 	}
 	return nil, false
 }
@@ -2989,6 +3031,8 @@ func (m *UserMutation) OldField(ctx context.Context, name string) (ent.Value, er
 		return m.OldUpdatedAt(ctx)
 	case user.FieldRole:
 		return m.OldRole(ctx)
+	case user.FieldExternalID:
+		return m.OldExternalID(ctx)
 	}
 	return nil, fmt.Errorf("unknown User field %s", name)
 }
@@ -3053,6 +3097,13 @@ func (m *UserMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetRole(v)
+		return nil
+	case user.FieldExternalID:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetExternalID(v)
 		return nil
 	}
 	return fmt.Errorf("unknown User field %s", name)
@@ -3141,6 +3192,9 @@ func (m *UserMutation) ResetField(name string) error {
 		return nil
 	case user.FieldRole:
 		m.ResetRole()
+		return nil
+	case user.FieldExternalID:
+		m.ResetExternalID()
 		return nil
 	}
 	return fmt.Errorf("unknown User field %s", name)

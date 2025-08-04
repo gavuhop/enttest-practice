@@ -60,4 +60,8 @@ func init() {
 	user.DefaultRole = userDescRole.Default.(string)
 	// user.RoleValidator is a validator for the "role" field. It is called by the builders before save.
 	user.RoleValidator = userDescRole.Validators[0].(func(string) error)
+	// userDescExternalID is the schema descriptor for external_id field.
+	userDescExternalID := userFields[8].Descriptor()
+	// user.ExternalIDValidator is a validator for the "external_id" field. It is called by the builders before save.
+	user.ExternalIDValidator = userDescExternalID.Validators[0].(func(string) error)
 }

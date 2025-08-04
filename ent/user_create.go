@@ -108,6 +108,12 @@ func (_c *UserCreate) SetNillableRole(v *string) *UserCreate {
 	return _c
 }
 
+// SetExternalID sets the "external_id" field.
+func (_c *UserCreate) SetExternalID(v string) *UserCreate {
+	_c.mutation.SetExternalID(v)
+	return _c
+}
+
 // Mutation returns the UserMutation object of the builder.
 func (_c *UserCreate) Mutation() *UserMutation {
 	return _c.mutation
@@ -201,6 +207,14 @@ func (_c *UserCreate) check() error {
 			return &ValidationError{Name: "role", err: fmt.Errorf(`ent: validator failed for field "User.role": %w`, err)}
 		}
 	}
+	if _, ok := _c.mutation.ExternalID(); !ok {
+		return &ValidationError{Name: "external_id", err: errors.New(`ent: missing required field "User.external_id"`)}
+	}
+	if v, ok := _c.mutation.ExternalID(); ok {
+		if err := user.ExternalIDValidator(v); err != nil {
+			return &ValidationError{Name: "external_id", err: fmt.Errorf(`ent: validator failed for field "User.external_id": %w`, err)}
+		}
+	}
 	return nil
 }
 
@@ -258,6 +272,10 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 	if value, ok := _c.mutation.Role(); ok {
 		_spec.SetField(user.FieldRole, field.TypeString, value)
 		_node.Role = value
+	}
+	if value, ok := _c.mutation.ExternalID(); ok {
+		_spec.SetField(user.FieldExternalID, field.TypeString, value)
+		_node.ExternalID = value
 	}
 	return _node, _spec
 }

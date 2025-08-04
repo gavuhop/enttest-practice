@@ -29,6 +29,8 @@ const (
 	FieldUpdatedAt = "updated_at"
 	// FieldRole holds the string denoting the role field in the database.
 	FieldRole = "role"
+	// FieldExternalID holds the string denoting the external_id field in the database.
+	FieldExternalID = "external_id"
 	// Table holds the table name of the user in the database.
 	Table = "users"
 )
@@ -44,6 +46,7 @@ var Columns = []string{
 	FieldCreatedAt,
 	FieldUpdatedAt,
 	FieldRole,
+	FieldExternalID,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -75,6 +78,8 @@ var (
 	DefaultRole string
 	// RoleValidator is a validator for the "role" field. It is called by the builders before save.
 	RoleValidator func(string) error
+	// ExternalIDValidator is a validator for the "external_id" field. It is called by the builders before save.
+	ExternalIDValidator func(string) error
 )
 
 // OrderOption defines the ordering options for the User queries.
@@ -123,4 +128,9 @@ func ByUpdatedAt(opts ...sql.OrderTermOption) OrderOption {
 // ByRole orders the results by the role field.
 func ByRole(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldRole, opts...).ToFunc()
+}
+
+// ByExternalID orders the results by the external_id field.
+func ByExternalID(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldExternalID, opts...).ToFunc()
 }
