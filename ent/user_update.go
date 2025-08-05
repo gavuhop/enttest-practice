@@ -144,6 +144,66 @@ func (_u *UserUpdate) SetNillableExternalID(v *string) *UserUpdate {
 	return _u
 }
 
+// SetAvatarURL sets the "avatar_url" field.
+func (_u *UserUpdate) SetAvatarURL(v string) *UserUpdate {
+	_u.mutation.SetAvatarURL(v)
+	return _u
+}
+
+// SetNillableAvatarURL sets the "avatar_url" field if the given value is not nil.
+func (_u *UserUpdate) SetNillableAvatarURL(v *string) *UserUpdate {
+	if v != nil {
+		_u.SetAvatarURL(*v)
+	}
+	return _u
+}
+
+// ClearAvatarURL clears the value of the "avatar_url" field.
+func (_u *UserUpdate) ClearAvatarURL() *UserUpdate {
+	_u.mutation.ClearAvatarURL()
+	return _u
+}
+
+// SetProvider sets the "provider" field.
+func (_u *UserUpdate) SetProvider(v string) *UserUpdate {
+	_u.mutation.SetProvider(v)
+	return _u
+}
+
+// SetNillableProvider sets the "provider" field if the given value is not nil.
+func (_u *UserUpdate) SetNillableProvider(v *string) *UserUpdate {
+	if v != nil {
+		_u.SetProvider(*v)
+	}
+	return _u
+}
+
+// ClearProvider clears the value of the "provider" field.
+func (_u *UserUpdate) ClearProvider() *UserUpdate {
+	_u.mutation.ClearProvider()
+	return _u
+}
+
+// SetProviderID sets the "provider_id" field.
+func (_u *UserUpdate) SetProviderID(v string) *UserUpdate {
+	_u.mutation.SetProviderID(v)
+	return _u
+}
+
+// SetNillableProviderID sets the "provider_id" field if the given value is not nil.
+func (_u *UserUpdate) SetNillableProviderID(v *string) *UserUpdate {
+	if v != nil {
+		_u.SetProviderID(*v)
+	}
+	return _u
+}
+
+// ClearProviderID clears the value of the "provider_id" field.
+func (_u *UserUpdate) ClearProviderID() *UserUpdate {
+	_u.mutation.ClearProviderID()
+	return _u
+}
+
 // Mutation returns the UserMutation object of the builder.
 func (_u *UserUpdate) Mutation() *UserMutation {
 	return _u.mutation
@@ -256,6 +316,24 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	}
 	if value, ok := _u.mutation.ExternalID(); ok {
 		_spec.SetField(user.FieldExternalID, field.TypeString, value)
+	}
+	if value, ok := _u.mutation.AvatarURL(); ok {
+		_spec.SetField(user.FieldAvatarURL, field.TypeString, value)
+	}
+	if _u.mutation.AvatarURLCleared() {
+		_spec.ClearField(user.FieldAvatarURL, field.TypeString)
+	}
+	if value, ok := _u.mutation.Provider(); ok {
+		_spec.SetField(user.FieldProvider, field.TypeString, value)
+	}
+	if _u.mutation.ProviderCleared() {
+		_spec.ClearField(user.FieldProvider, field.TypeString)
+	}
+	if value, ok := _u.mutation.ProviderID(); ok {
+		_spec.SetField(user.FieldProviderID, field.TypeString, value)
+	}
+	if _u.mutation.ProviderIDCleared() {
+		_spec.ClearField(user.FieldProviderID, field.TypeString)
 	}
 	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
@@ -390,6 +468,66 @@ func (_u *UserUpdateOne) SetNillableExternalID(v *string) *UserUpdateOne {
 	if v != nil {
 		_u.SetExternalID(*v)
 	}
+	return _u
+}
+
+// SetAvatarURL sets the "avatar_url" field.
+func (_u *UserUpdateOne) SetAvatarURL(v string) *UserUpdateOne {
+	_u.mutation.SetAvatarURL(v)
+	return _u
+}
+
+// SetNillableAvatarURL sets the "avatar_url" field if the given value is not nil.
+func (_u *UserUpdateOne) SetNillableAvatarURL(v *string) *UserUpdateOne {
+	if v != nil {
+		_u.SetAvatarURL(*v)
+	}
+	return _u
+}
+
+// ClearAvatarURL clears the value of the "avatar_url" field.
+func (_u *UserUpdateOne) ClearAvatarURL() *UserUpdateOne {
+	_u.mutation.ClearAvatarURL()
+	return _u
+}
+
+// SetProvider sets the "provider" field.
+func (_u *UserUpdateOne) SetProvider(v string) *UserUpdateOne {
+	_u.mutation.SetProvider(v)
+	return _u
+}
+
+// SetNillableProvider sets the "provider" field if the given value is not nil.
+func (_u *UserUpdateOne) SetNillableProvider(v *string) *UserUpdateOne {
+	if v != nil {
+		_u.SetProvider(*v)
+	}
+	return _u
+}
+
+// ClearProvider clears the value of the "provider" field.
+func (_u *UserUpdateOne) ClearProvider() *UserUpdateOne {
+	_u.mutation.ClearProvider()
+	return _u
+}
+
+// SetProviderID sets the "provider_id" field.
+func (_u *UserUpdateOne) SetProviderID(v string) *UserUpdateOne {
+	_u.mutation.SetProviderID(v)
+	return _u
+}
+
+// SetNillableProviderID sets the "provider_id" field if the given value is not nil.
+func (_u *UserUpdateOne) SetNillableProviderID(v *string) *UserUpdateOne {
+	if v != nil {
+		_u.SetProviderID(*v)
+	}
+	return _u
+}
+
+// ClearProviderID clears the value of the "provider_id" field.
+func (_u *UserUpdateOne) ClearProviderID() *UserUpdateOne {
+	_u.mutation.ClearProviderID()
 	return _u
 }
 
@@ -535,6 +673,24 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 	}
 	if value, ok := _u.mutation.ExternalID(); ok {
 		_spec.SetField(user.FieldExternalID, field.TypeString, value)
+	}
+	if value, ok := _u.mutation.AvatarURL(); ok {
+		_spec.SetField(user.FieldAvatarURL, field.TypeString, value)
+	}
+	if _u.mutation.AvatarURLCleared() {
+		_spec.ClearField(user.FieldAvatarURL, field.TypeString)
+	}
+	if value, ok := _u.mutation.Provider(); ok {
+		_spec.SetField(user.FieldProvider, field.TypeString, value)
+	}
+	if _u.mutation.ProviderCleared() {
+		_spec.ClearField(user.FieldProvider, field.TypeString)
+	}
+	if value, ok := _u.mutation.ProviderID(); ok {
+		_spec.SetField(user.FieldProviderID, field.TypeString, value)
+	}
+	if _u.mutation.ProviderIDCleared() {
+		_spec.ClearField(user.FieldProviderID, field.TypeString)
 	}
 	_node = &User{config: _u.config}
 	_spec.Assign = _node.assignValues

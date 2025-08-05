@@ -31,6 +31,12 @@ const (
 	FieldRole = "role"
 	// FieldExternalID holds the string denoting the external_id field in the database.
 	FieldExternalID = "external_id"
+	// FieldAvatarURL holds the string denoting the avatar_url field in the database.
+	FieldAvatarURL = "avatar_url"
+	// FieldProvider holds the string denoting the provider field in the database.
+	FieldProvider = "provider"
+	// FieldProviderID holds the string denoting the provider_id field in the database.
+	FieldProviderID = "provider_id"
 	// Table holds the table name of the user in the database.
 	Table = "users"
 )
@@ -47,6 +53,9 @@ var Columns = []string{
 	FieldUpdatedAt,
 	FieldRole,
 	FieldExternalID,
+	FieldAvatarURL,
+	FieldProvider,
+	FieldProviderID,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -80,6 +89,8 @@ var (
 	RoleValidator func(string) error
 	// ExternalIDValidator is a validator for the "external_id" field. It is called by the builders before save.
 	ExternalIDValidator func(string) error
+	// DefaultProvider holds the default value on creation for the "provider" field.
+	DefaultProvider string
 )
 
 // OrderOption defines the ordering options for the User queries.
@@ -133,4 +144,19 @@ func ByRole(opts ...sql.OrderTermOption) OrderOption {
 // ByExternalID orders the results by the external_id field.
 func ByExternalID(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldExternalID, opts...).ToFunc()
+}
+
+// ByAvatarURL orders the results by the avatar_url field.
+func ByAvatarURL(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldAvatarURL, opts...).ToFunc()
+}
+
+// ByProvider orders the results by the provider field.
+func ByProvider(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldProvider, opts...).ToFunc()
+}
+
+// ByProviderID orders the results by the provider_id field.
+func ByProviderID(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldProviderID, opts...).ToFunc()
 }

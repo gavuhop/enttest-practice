@@ -64,4 +64,8 @@ func init() {
 	userDescExternalID := userFields[8].Descriptor()
 	// user.ExternalIDValidator is a validator for the "external_id" field. It is called by the builders before save.
 	user.ExternalIDValidator = userDescExternalID.Validators[0].(func(string) error)
+	// userDescProvider is the schema descriptor for provider field.
+	userDescProvider := userFields[10].Descriptor()
+	// user.DefaultProvider holds the default value on creation for the provider field.
+	user.DefaultProvider = userDescProvider.Default.(string)
 }

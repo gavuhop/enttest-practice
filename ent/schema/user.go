@@ -24,6 +24,9 @@ func (User) Fields() []ent.Field {
 		field.Time("updated_at").Default(time.Now).UpdateDefault(time.Now),
 		field.String("role").Default("user").Optional().NotEmpty(),
 		field.String("external_id").Unique().NotEmpty(),
+		field.String("avatar_url").Optional(),
+		field.String("provider").Default("local").Optional(),
+		field.String("provider_id").Optional(),
 	}
 }
 

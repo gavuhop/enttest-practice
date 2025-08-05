@@ -114,6 +114,48 @@ func (_c *UserCreate) SetExternalID(v string) *UserCreate {
 	return _c
 }
 
+// SetAvatarURL sets the "avatar_url" field.
+func (_c *UserCreate) SetAvatarURL(v string) *UserCreate {
+	_c.mutation.SetAvatarURL(v)
+	return _c
+}
+
+// SetNillableAvatarURL sets the "avatar_url" field if the given value is not nil.
+func (_c *UserCreate) SetNillableAvatarURL(v *string) *UserCreate {
+	if v != nil {
+		_c.SetAvatarURL(*v)
+	}
+	return _c
+}
+
+// SetProvider sets the "provider" field.
+func (_c *UserCreate) SetProvider(v string) *UserCreate {
+	_c.mutation.SetProvider(v)
+	return _c
+}
+
+// SetNillableProvider sets the "provider" field if the given value is not nil.
+func (_c *UserCreate) SetNillableProvider(v *string) *UserCreate {
+	if v != nil {
+		_c.SetProvider(*v)
+	}
+	return _c
+}
+
+// SetProviderID sets the "provider_id" field.
+func (_c *UserCreate) SetProviderID(v string) *UserCreate {
+	_c.mutation.SetProviderID(v)
+	return _c
+}
+
+// SetNillableProviderID sets the "provider_id" field if the given value is not nil.
+func (_c *UserCreate) SetNillableProviderID(v *string) *UserCreate {
+	if v != nil {
+		_c.SetProviderID(*v)
+	}
+	return _c
+}
+
 // Mutation returns the UserMutation object of the builder.
 func (_c *UserCreate) Mutation() *UserMutation {
 	return _c.mutation
@@ -164,6 +206,10 @@ func (_c *UserCreate) defaults() {
 	if _, ok := _c.mutation.Role(); !ok {
 		v := user.DefaultRole
 		_c.mutation.SetRole(v)
+	}
+	if _, ok := _c.mutation.Provider(); !ok {
+		v := user.DefaultProvider
+		_c.mutation.SetProvider(v)
 	}
 }
 
@@ -276,6 +322,18 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 	if value, ok := _c.mutation.ExternalID(); ok {
 		_spec.SetField(user.FieldExternalID, field.TypeString, value)
 		_node.ExternalID = value
+	}
+	if value, ok := _c.mutation.AvatarURL(); ok {
+		_spec.SetField(user.FieldAvatarURL, field.TypeString, value)
+		_node.AvatarURL = value
+	}
+	if value, ok := _c.mutation.Provider(); ok {
+		_spec.SetField(user.FieldProvider, field.TypeString, value)
+		_node.Provider = value
+	}
+	if value, ok := _c.mutation.ProviderID(); ok {
+		_spec.SetField(user.FieldProviderID, field.TypeString, value)
+		_node.ProviderID = value
 	}
 	return _node, _spec
 }

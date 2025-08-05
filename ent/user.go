@@ -34,7 +34,13 @@ type User struct {
 	// Role holds the value of the "role" field.
 	Role string `json:"role,omitempty"`
 	// ExternalID holds the value of the "external_id" field.
-	ExternalID   string `json:"external_id,omitempty"`
+	ExternalID string `json:"external_id,omitempty"`
+	// AvatarURL holds the value of the "avatar_url" field.
+	AvatarURL string `json:"avatar_url,omitempty"`
+	// Provider holds the value of the "provider" field.
+	Provider string `json:"provider,omitempty"`
+	// ProviderID holds the value of the "provider_id" field.
+	ProviderID   string `json:"provider_id,omitempty"`
 	selectValues sql.SelectValues
 }
 
@@ -47,7 +53,7 @@ func (*User) scanValues(columns []string) ([]any, error) {
 			values[i] = new(sql.NullBool)
 		case user.FieldID:
 			values[i] = new(sql.NullInt64)
-		case user.FieldUsername, user.FieldEmail, user.FieldPasswordHash, user.FieldFullName, user.FieldRole, user.FieldExternalID:
+		case user.FieldUsername, user.FieldEmail, user.FieldPasswordHash, user.FieldFullName, user.FieldRole, user.FieldExternalID, user.FieldAvatarURL, user.FieldProvider, user.FieldProviderID:
 			values[i] = new(sql.NullString)
 		case user.FieldCreatedAt, user.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
@@ -126,6 +132,24 @@ func (_m *User) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				_m.ExternalID = value.String
 			}
+		case user.FieldAvatarURL:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field avatar_url", values[i])
+			} else if value.Valid {
+				_m.AvatarURL = value.String
+			}
+		case user.FieldProvider:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field provider", values[i])
+			} else if value.Valid {
+				_m.Provider = value.String
+			}
+		case user.FieldProviderID:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field provider_id", values[i])
+			} else if value.Valid {
+				_m.ProviderID = value.String
+			}
 		default:
 			_m.selectValues.Set(columns[i], values[i])
 		}
@@ -188,6 +212,15 @@ func (_m *User) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("external_id=")
 	builder.WriteString(_m.ExternalID)
+	builder.WriteString(", ")
+	builder.WriteString("avatar_url=")
+	builder.WriteString(_m.AvatarURL)
+	builder.WriteString(", ")
+	builder.WriteString("provider=")
+	builder.WriteString(_m.Provider)
+	builder.WriteString(", ")
+	builder.WriteString("provider_id=")
+	builder.WriteString(_m.ProviderID)
 	builder.WriteByte(')')
 	return builder.String()
 }

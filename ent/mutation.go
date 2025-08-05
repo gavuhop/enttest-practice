@@ -2464,6 +2464,9 @@ type UserMutation struct {
 	updated_at    *time.Time
 	role          *string
 	external_id   *string
+	avatar_url    *string
+	provider      *string
+	provider_id   *string
 	clearedFields map[string]struct{}
 	done          bool
 	oldValue      func(context.Context) (*User, error)
@@ -2918,6 +2921,153 @@ func (m *UserMutation) ResetExternalID() {
 	m.external_id = nil
 }
 
+// SetAvatarURL sets the "avatar_url" field.
+func (m *UserMutation) SetAvatarURL(s string) {
+	m.avatar_url = &s
+}
+
+// AvatarURL returns the value of the "avatar_url" field in the mutation.
+func (m *UserMutation) AvatarURL() (r string, exists bool) {
+	v := m.avatar_url
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldAvatarURL returns the old "avatar_url" field's value of the User entity.
+// If the User object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *UserMutation) OldAvatarURL(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldAvatarURL is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldAvatarURL requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldAvatarURL: %w", err)
+	}
+	return oldValue.AvatarURL, nil
+}
+
+// ClearAvatarURL clears the value of the "avatar_url" field.
+func (m *UserMutation) ClearAvatarURL() {
+	m.avatar_url = nil
+	m.clearedFields[user.FieldAvatarURL] = struct{}{}
+}
+
+// AvatarURLCleared returns if the "avatar_url" field was cleared in this mutation.
+func (m *UserMutation) AvatarURLCleared() bool {
+	_, ok := m.clearedFields[user.FieldAvatarURL]
+	return ok
+}
+
+// ResetAvatarURL resets all changes to the "avatar_url" field.
+func (m *UserMutation) ResetAvatarURL() {
+	m.avatar_url = nil
+	delete(m.clearedFields, user.FieldAvatarURL)
+}
+
+// SetProvider sets the "provider" field.
+func (m *UserMutation) SetProvider(s string) {
+	m.provider = &s
+}
+
+// Provider returns the value of the "provider" field in the mutation.
+func (m *UserMutation) Provider() (r string, exists bool) {
+	v := m.provider
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldProvider returns the old "provider" field's value of the User entity.
+// If the User object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *UserMutation) OldProvider(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldProvider is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldProvider requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldProvider: %w", err)
+	}
+	return oldValue.Provider, nil
+}
+
+// ClearProvider clears the value of the "provider" field.
+func (m *UserMutation) ClearProvider() {
+	m.provider = nil
+	m.clearedFields[user.FieldProvider] = struct{}{}
+}
+
+// ProviderCleared returns if the "provider" field was cleared in this mutation.
+func (m *UserMutation) ProviderCleared() bool {
+	_, ok := m.clearedFields[user.FieldProvider]
+	return ok
+}
+
+// ResetProvider resets all changes to the "provider" field.
+func (m *UserMutation) ResetProvider() {
+	m.provider = nil
+	delete(m.clearedFields, user.FieldProvider)
+}
+
+// SetProviderID sets the "provider_id" field.
+func (m *UserMutation) SetProviderID(s string) {
+	m.provider_id = &s
+}
+
+// ProviderID returns the value of the "provider_id" field in the mutation.
+func (m *UserMutation) ProviderID() (r string, exists bool) {
+	v := m.provider_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldProviderID returns the old "provider_id" field's value of the User entity.
+// If the User object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *UserMutation) OldProviderID(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldProviderID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldProviderID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldProviderID: %w", err)
+	}
+	return oldValue.ProviderID, nil
+}
+
+// ClearProviderID clears the value of the "provider_id" field.
+func (m *UserMutation) ClearProviderID() {
+	m.provider_id = nil
+	m.clearedFields[user.FieldProviderID] = struct{}{}
+}
+
+// ProviderIDCleared returns if the "provider_id" field was cleared in this mutation.
+func (m *UserMutation) ProviderIDCleared() bool {
+	_, ok := m.clearedFields[user.FieldProviderID]
+	return ok
+}
+
+// ResetProviderID resets all changes to the "provider_id" field.
+func (m *UserMutation) ResetProviderID() {
+	m.provider_id = nil
+	delete(m.clearedFields, user.FieldProviderID)
+}
+
 // Where appends a list predicates to the UserMutation builder.
 func (m *UserMutation) Where(ps ...predicate.User) {
 	m.predicates = append(m.predicates, ps...)
@@ -2952,7 +3102,7 @@ func (m *UserMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *UserMutation) Fields() []string {
-	fields := make([]string, 0, 9)
+	fields := make([]string, 0, 12)
 	if m.username != nil {
 		fields = append(fields, user.FieldUsername)
 	}
@@ -2980,6 +3130,15 @@ func (m *UserMutation) Fields() []string {
 	if m.external_id != nil {
 		fields = append(fields, user.FieldExternalID)
 	}
+	if m.avatar_url != nil {
+		fields = append(fields, user.FieldAvatarURL)
+	}
+	if m.provider != nil {
+		fields = append(fields, user.FieldProvider)
+	}
+	if m.provider_id != nil {
+		fields = append(fields, user.FieldProviderID)
+	}
 	return fields
 }
 
@@ -3006,6 +3165,12 @@ func (m *UserMutation) Field(name string) (ent.Value, bool) {
 		return m.Role()
 	case user.FieldExternalID:
 		return m.ExternalID()
+	case user.FieldAvatarURL:
+		return m.AvatarURL()
+	case user.FieldProvider:
+		return m.Provider()
+	case user.FieldProviderID:
+		return m.ProviderID()
 	}
 	return nil, false
 }
@@ -3033,6 +3198,12 @@ func (m *UserMutation) OldField(ctx context.Context, name string) (ent.Value, er
 		return m.OldRole(ctx)
 	case user.FieldExternalID:
 		return m.OldExternalID(ctx)
+	case user.FieldAvatarURL:
+		return m.OldAvatarURL(ctx)
+	case user.FieldProvider:
+		return m.OldProvider(ctx)
+	case user.FieldProviderID:
+		return m.OldProviderID(ctx)
 	}
 	return nil, fmt.Errorf("unknown User field %s", name)
 }
@@ -3105,6 +3276,27 @@ func (m *UserMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetExternalID(v)
 		return nil
+	case user.FieldAvatarURL:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetAvatarURL(v)
+		return nil
+	case user.FieldProvider:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetProvider(v)
+		return nil
+	case user.FieldProviderID:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetProviderID(v)
+		return nil
 	}
 	return fmt.Errorf("unknown User field %s", name)
 }
@@ -3141,6 +3333,15 @@ func (m *UserMutation) ClearedFields() []string {
 	if m.FieldCleared(user.FieldRole) {
 		fields = append(fields, user.FieldRole)
 	}
+	if m.FieldCleared(user.FieldAvatarURL) {
+		fields = append(fields, user.FieldAvatarURL)
+	}
+	if m.FieldCleared(user.FieldProvider) {
+		fields = append(fields, user.FieldProvider)
+	}
+	if m.FieldCleared(user.FieldProviderID) {
+		fields = append(fields, user.FieldProviderID)
+	}
 	return fields
 }
 
@@ -3160,6 +3361,15 @@ func (m *UserMutation) ClearField(name string) error {
 		return nil
 	case user.FieldRole:
 		m.ClearRole()
+		return nil
+	case user.FieldAvatarURL:
+		m.ClearAvatarURL()
+		return nil
+	case user.FieldProvider:
+		m.ClearProvider()
+		return nil
+	case user.FieldProviderID:
+		m.ClearProviderID()
 		return nil
 	}
 	return fmt.Errorf("unknown User nullable field %s", name)
@@ -3195,6 +3405,15 @@ func (m *UserMutation) ResetField(name string) error {
 		return nil
 	case user.FieldExternalID:
 		m.ResetExternalID()
+		return nil
+	case user.FieldAvatarURL:
+		m.ResetAvatarURL()
+		return nil
+	case user.FieldProvider:
+		m.ResetProvider()
+		return nil
+	case user.FieldProviderID:
+		m.ResetProviderID()
 		return nil
 	}
 	return fmt.Errorf("unknown User field %s", name)

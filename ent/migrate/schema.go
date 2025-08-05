@@ -79,6 +79,9 @@ var (
 		{Name: "updated_at", Type: field.TypeTime},
 		{Name: "role", Type: field.TypeString, Nullable: true, Default: "user"},
 		{Name: "external_id", Type: field.TypeString, Unique: true},
+		{Name: "avatar_url", Type: field.TypeString, Nullable: true},
+		{Name: "provider", Type: field.TypeString, Nullable: true, Default: "local"},
+		{Name: "provider_id", Type: field.TypeString, Nullable: true},
 	}
 	// UsersTable holds the schema information for the "users" table.
 	UsersTable = &schema.Table{
