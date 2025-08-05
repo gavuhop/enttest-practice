@@ -86,6 +86,16 @@ atlas migrate rm 20221115102552
 go run entgo.io/ent/cmd/ent generate ./ent/schema
 ```
 
+### Kiểm tra schema khớp với database sau khi rollback
+```bash
+atlas migrate status --env local
+```
+
+### Validate migration status trước và sau rollback
+```bash
+atlas migrate validate --env local
+```
+
 ---
 
 ## 5. Ví Dụ Quy Trình Đầy Đủ
