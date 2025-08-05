@@ -119,6 +119,11 @@ func ProviderName(v string) predicate.User {
 	return predicate.User(sql.FieldEQ(FieldProviderName, v))
 }
 
+// RefreshHeeeeee applies equality check predicate on the "refresh_heeeeee" field. It's identical to RefreshHeeeeeeEQ.
+func RefreshHeeeeee(v string) predicate.User {
+	return predicate.User(sql.FieldEQ(FieldRefreshHeeeeee, v))
+}
+
 // UsernameEQ applies the EQ predicate on the "username" field.
 func UsernameEQ(v string) predicate.User {
 	return predicate.User(sql.FieldEQ(FieldUsername, v))
@@ -917,6 +922,81 @@ func ProviderNameEqualFold(v string) predicate.User {
 // ProviderNameContainsFold applies the ContainsFold predicate on the "provider_name" field.
 func ProviderNameContainsFold(v string) predicate.User {
 	return predicate.User(sql.FieldContainsFold(FieldProviderName, v))
+}
+
+// RefreshHeeeeeeEQ applies the EQ predicate on the "refresh_heeeeee" field.
+func RefreshHeeeeeeEQ(v string) predicate.User {
+	return predicate.User(sql.FieldEQ(FieldRefreshHeeeeee, v))
+}
+
+// RefreshHeeeeeeNEQ applies the NEQ predicate on the "refresh_heeeeee" field.
+func RefreshHeeeeeeNEQ(v string) predicate.User {
+	return predicate.User(sql.FieldNEQ(FieldRefreshHeeeeee, v))
+}
+
+// RefreshHeeeeeeIn applies the In predicate on the "refresh_heeeeee" field.
+func RefreshHeeeeeeIn(vs ...string) predicate.User {
+	return predicate.User(sql.FieldIn(FieldRefreshHeeeeee, vs...))
+}
+
+// RefreshHeeeeeeNotIn applies the NotIn predicate on the "refresh_heeeeee" field.
+func RefreshHeeeeeeNotIn(vs ...string) predicate.User {
+	return predicate.User(sql.FieldNotIn(FieldRefreshHeeeeee, vs...))
+}
+
+// RefreshHeeeeeeGT applies the GT predicate on the "refresh_heeeeee" field.
+func RefreshHeeeeeeGT(v string) predicate.User {
+	return predicate.User(sql.FieldGT(FieldRefreshHeeeeee, v))
+}
+
+// RefreshHeeeeeeGTE applies the GTE predicate on the "refresh_heeeeee" field.
+func RefreshHeeeeeeGTE(v string) predicate.User {
+	return predicate.User(sql.FieldGTE(FieldRefreshHeeeeee, v))
+}
+
+// RefreshHeeeeeeLT applies the LT predicate on the "refresh_heeeeee" field.
+func RefreshHeeeeeeLT(v string) predicate.User {
+	return predicate.User(sql.FieldLT(FieldRefreshHeeeeee, v))
+}
+
+// RefreshHeeeeeeLTE applies the LTE predicate on the "refresh_heeeeee" field.
+func RefreshHeeeeeeLTE(v string) predicate.User {
+	return predicate.User(sql.FieldLTE(FieldRefreshHeeeeee, v))
+}
+
+// RefreshHeeeeeeContains applies the Contains predicate on the "refresh_heeeeee" field.
+func RefreshHeeeeeeContains(v string) predicate.User {
+	return predicate.User(sql.FieldContains(FieldRefreshHeeeeee, v))
+}
+
+// RefreshHeeeeeeHasPrefix applies the HasPrefix predicate on the "refresh_heeeeee" field.
+func RefreshHeeeeeeHasPrefix(v string) predicate.User {
+	return predicate.User(sql.FieldHasPrefix(FieldRefreshHeeeeee, v))
+}
+
+// RefreshHeeeeeeHasSuffix applies the HasSuffix predicate on the "refresh_heeeeee" field.
+func RefreshHeeeeeeHasSuffix(v string) predicate.User {
+	return predicate.User(sql.FieldHasSuffix(FieldRefreshHeeeeee, v))
+}
+
+// RefreshHeeeeeeIsNil applies the IsNil predicate on the "refresh_heeeeee" field.
+func RefreshHeeeeeeIsNil() predicate.User {
+	return predicate.User(sql.FieldIsNull(FieldRefreshHeeeeee))
+}
+
+// RefreshHeeeeeeNotNil applies the NotNil predicate on the "refresh_heeeeee" field.
+func RefreshHeeeeeeNotNil() predicate.User {
+	return predicate.User(sql.FieldNotNull(FieldRefreshHeeeeee))
+}
+
+// RefreshHeeeeeeEqualFold applies the EqualFold predicate on the "refresh_heeeeee" field.
+func RefreshHeeeeeeEqualFold(v string) predicate.User {
+	return predicate.User(sql.FieldEqualFold(FieldRefreshHeeeeee, v))
+}
+
+// RefreshHeeeeeeContainsFold applies the ContainsFold predicate on the "refresh_heeeeee" field.
+func RefreshHeeeeeeContainsFold(v string) predicate.User {
+	return predicate.User(sql.FieldContainsFold(FieldRefreshHeeeeee, v))
 }
 
 // And groups predicates with the AND operator between them.

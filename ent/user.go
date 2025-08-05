@@ -43,7 +43,9 @@ type User struct {
 	ProviderID string `json:"provider_id,omitempty"`
 	// ProviderName holds the value of the "provider_name" field.
 	ProviderName string `json:"provider_name,omitempty"`
-	selectValues sql.SelectValues
+	// RefreshHeeeeee holds the value of the "refresh_heeeeee" field.
+	RefreshHeeeeee string `json:"refresh_heeeeee,omitempty"`
+	selectValues   sql.SelectValues
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -55,7 +57,7 @@ func (*User) scanValues(columns []string) ([]any, error) {
 			values[i] = new(sql.NullBool)
 		case user.FieldID:
 			values[i] = new(sql.NullInt64)
-		case user.FieldUsername, user.FieldEmail, user.FieldPasswordHash, user.FieldFullName, user.FieldRole, user.FieldExternalID, user.FieldAvatarURL, user.FieldProvider, user.FieldProviderID, user.FieldProviderName:
+		case user.FieldUsername, user.FieldEmail, user.FieldPasswordHash, user.FieldFullName, user.FieldRole, user.FieldExternalID, user.FieldAvatarURL, user.FieldProvider, user.FieldProviderID, user.FieldProviderName, user.FieldRefreshHeeeeee:
 			values[i] = new(sql.NullString)
 		case user.FieldCreatedAt, user.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
@@ -158,6 +160,12 @@ func (_m *User) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				_m.ProviderName = value.String
 			}
+		case user.FieldRefreshHeeeeee:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field refresh_heeeeee", values[i])
+			} else if value.Valid {
+				_m.RefreshHeeeeee = value.String
+			}
 		default:
 			_m.selectValues.Set(columns[i], values[i])
 		}
@@ -232,6 +240,9 @@ func (_m *User) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("provider_name=")
 	builder.WriteString(_m.ProviderName)
+	builder.WriteString(", ")
+	builder.WriteString("refresh_heeeeee=")
+	builder.WriteString(_m.RefreshHeeeeee)
 	builder.WriteByte(')')
 	return builder.String()
 }

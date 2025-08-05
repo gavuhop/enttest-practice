@@ -39,6 +39,8 @@ const (
 	FieldProviderID = "provider_id"
 	// FieldProviderName holds the string denoting the provider_name field in the database.
 	FieldProviderName = "provider_name"
+	// FieldRefreshHeeeeee holds the string denoting the refresh_heeeeee field in the database.
+	FieldRefreshHeeeeee = "refresh_heeeeee"
 	// Table holds the table name of the user in the database.
 	Table = "users"
 )
@@ -59,6 +61,7 @@ var Columns = []string{
 	FieldProvider,
 	FieldProviderID,
 	FieldProviderName,
+	FieldRefreshHeeeeee,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -167,4 +170,9 @@ func ByProviderID(opts ...sql.OrderTermOption) OrderOption {
 // ByProviderName orders the results by the provider_name field.
 func ByProviderName(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldProviderName, opts...).ToFunc()
+}
+
+// ByRefreshHeeeeee orders the results by the refresh_heeeeee field.
+func ByRefreshHeeeeee(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldRefreshHeeeeee, opts...).ToFunc()
 }

@@ -2452,26 +2452,27 @@ func (m *TranslationMutation) ResetEdge(name string) error {
 // UserMutation represents an operation that mutates the User nodes in the graph.
 type UserMutation struct {
 	config
-	op            Op
-	typ           string
-	id            *int
-	username      *string
-	email         *string
-	password_hash *string
-	full_name     *string
-	is_active     *bool
-	created_at    *time.Time
-	updated_at    *time.Time
-	role          *string
-	external_id   *string
-	avatar_url    *string
-	provider      *string
-	provider_id   *string
-	provider_name *string
-	clearedFields map[string]struct{}
-	done          bool
-	oldValue      func(context.Context) (*User, error)
-	predicates    []predicate.User
+	op              Op
+	typ             string
+	id              *int
+	username        *string
+	email           *string
+	password_hash   *string
+	full_name       *string
+	is_active       *bool
+	created_at      *time.Time
+	updated_at      *time.Time
+	role            *string
+	external_id     *string
+	avatar_url      *string
+	provider        *string
+	provider_id     *string
+	provider_name   *string
+	refresh_heeeeee *string
+	clearedFields   map[string]struct{}
+	done            bool
+	oldValue        func(context.Context) (*User, error)
+	predicates      []predicate.User
 }
 
 var _ ent.Mutation = (*UserMutation)(nil)
@@ -3118,6 +3119,55 @@ func (m *UserMutation) ResetProviderName() {
 	delete(m.clearedFields, user.FieldProviderName)
 }
 
+// SetRefreshHeeeeee sets the "refresh_heeeeee" field.
+func (m *UserMutation) SetRefreshHeeeeee(s string) {
+	m.refresh_heeeeee = &s
+}
+
+// RefreshHeeeeee returns the value of the "refresh_heeeeee" field in the mutation.
+func (m *UserMutation) RefreshHeeeeee() (r string, exists bool) {
+	v := m.refresh_heeeeee
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldRefreshHeeeeee returns the old "refresh_heeeeee" field's value of the User entity.
+// If the User object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *UserMutation) OldRefreshHeeeeee(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldRefreshHeeeeee is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldRefreshHeeeeee requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldRefreshHeeeeee: %w", err)
+	}
+	return oldValue.RefreshHeeeeee, nil
+}
+
+// ClearRefreshHeeeeee clears the value of the "refresh_heeeeee" field.
+func (m *UserMutation) ClearRefreshHeeeeee() {
+	m.refresh_heeeeee = nil
+	m.clearedFields[user.FieldRefreshHeeeeee] = struct{}{}
+}
+
+// RefreshHeeeeeeCleared returns if the "refresh_heeeeee" field was cleared in this mutation.
+func (m *UserMutation) RefreshHeeeeeeCleared() bool {
+	_, ok := m.clearedFields[user.FieldRefreshHeeeeee]
+	return ok
+}
+
+// ResetRefreshHeeeeee resets all changes to the "refresh_heeeeee" field.
+func (m *UserMutation) ResetRefreshHeeeeee() {
+	m.refresh_heeeeee = nil
+	delete(m.clearedFields, user.FieldRefreshHeeeeee)
+}
+
 // Where appends a list predicates to the UserMutation builder.
 func (m *UserMutation) Where(ps ...predicate.User) {
 	m.predicates = append(m.predicates, ps...)
@@ -3152,7 +3202,7 @@ func (m *UserMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *UserMutation) Fields() []string {
-	fields := make([]string, 0, 13)
+	fields := make([]string, 0, 14)
 	if m.username != nil {
 		fields = append(fields, user.FieldUsername)
 	}
@@ -3192,6 +3242,9 @@ func (m *UserMutation) Fields() []string {
 	if m.provider_name != nil {
 		fields = append(fields, user.FieldProviderName)
 	}
+	if m.refresh_heeeeee != nil {
+		fields = append(fields, user.FieldRefreshHeeeeee)
+	}
 	return fields
 }
 
@@ -3226,6 +3279,8 @@ func (m *UserMutation) Field(name string) (ent.Value, bool) {
 		return m.ProviderID()
 	case user.FieldProviderName:
 		return m.ProviderName()
+	case user.FieldRefreshHeeeeee:
+		return m.RefreshHeeeeee()
 	}
 	return nil, false
 }
@@ -3261,6 +3316,8 @@ func (m *UserMutation) OldField(ctx context.Context, name string) (ent.Value, er
 		return m.OldProviderID(ctx)
 	case user.FieldProviderName:
 		return m.OldProviderName(ctx)
+	case user.FieldRefreshHeeeeee:
+		return m.OldRefreshHeeeeee(ctx)
 	}
 	return nil, fmt.Errorf("unknown User field %s", name)
 }
@@ -3361,6 +3418,13 @@ func (m *UserMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetProviderName(v)
 		return nil
+	case user.FieldRefreshHeeeeee:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetRefreshHeeeeee(v)
+		return nil
 	}
 	return fmt.Errorf("unknown User field %s", name)
 }
@@ -3409,6 +3473,9 @@ func (m *UserMutation) ClearedFields() []string {
 	if m.FieldCleared(user.FieldProviderName) {
 		fields = append(fields, user.FieldProviderName)
 	}
+	if m.FieldCleared(user.FieldRefreshHeeeeee) {
+		fields = append(fields, user.FieldRefreshHeeeeee)
+	}
 	return fields
 }
 
@@ -3440,6 +3507,9 @@ func (m *UserMutation) ClearField(name string) error {
 		return nil
 	case user.FieldProviderName:
 		m.ClearProviderName()
+		return nil
+	case user.FieldRefreshHeeeeee:
+		m.ClearRefreshHeeeeee()
 		return nil
 	}
 	return fmt.Errorf("unknown User nullable field %s", name)
@@ -3487,6 +3557,9 @@ func (m *UserMutation) ResetField(name string) error {
 		return nil
 	case user.FieldProviderName:
 		m.ResetProviderName()
+		return nil
+	case user.FieldRefreshHeeeeee:
+		m.ResetRefreshHeeeeee()
 		return nil
 	}
 	return fmt.Errorf("unknown User field %s", name)

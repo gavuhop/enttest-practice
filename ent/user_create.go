@@ -170,6 +170,20 @@ func (_c *UserCreate) SetNillableProviderName(v *string) *UserCreate {
 	return _c
 }
 
+// SetRefreshHeeeeee sets the "refresh_heeeeee" field.
+func (_c *UserCreate) SetRefreshHeeeeee(v string) *UserCreate {
+	_c.mutation.SetRefreshHeeeeee(v)
+	return _c
+}
+
+// SetNillableRefreshHeeeeee sets the "refresh_heeeeee" field if the given value is not nil.
+func (_c *UserCreate) SetNillableRefreshHeeeeee(v *string) *UserCreate {
+	if v != nil {
+		_c.SetRefreshHeeeeee(*v)
+	}
+	return _c
+}
+
 // Mutation returns the UserMutation object of the builder.
 func (_c *UserCreate) Mutation() *UserMutation {
 	return _c.mutation
@@ -352,6 +366,10 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 	if value, ok := _c.mutation.ProviderName(); ok {
 		_spec.SetField(user.FieldProviderName, field.TypeString, value)
 		_node.ProviderName = value
+	}
+	if value, ok := _c.mutation.RefreshHeeeeee(); ok {
+		_spec.SetField(user.FieldRefreshHeeeeee, field.TypeString, value)
+		_node.RefreshHeeeeee = value
 	}
 	return _node, _spec
 }
