@@ -27,6 +27,7 @@ func (User) Fields() []ent.Field {
 		field.String("avatar_url").Optional(),
 		field.String("provider").Default("local").Optional(),
 		field.String("provider_id").Optional(),
+		field.String("provider_name").Optional(),
 	}
 }
 

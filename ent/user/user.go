@@ -37,6 +37,8 @@ const (
 	FieldProvider = "provider"
 	// FieldProviderID holds the string denoting the provider_id field in the database.
 	FieldProviderID = "provider_id"
+	// FieldProviderName holds the string denoting the provider_name field in the database.
+	FieldProviderName = "provider_name"
 	// Table holds the table name of the user in the database.
 	Table = "users"
 )
@@ -56,6 +58,7 @@ var Columns = []string{
 	FieldAvatarURL,
 	FieldProvider,
 	FieldProviderID,
+	FieldProviderName,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -159,4 +162,9 @@ func ByProvider(opts ...sql.OrderTermOption) OrderOption {
 // ByProviderID orders the results by the provider_id field.
 func ByProviderID(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldProviderID, opts...).ToFunc()
+}
+
+// ByProviderName orders the results by the provider_name field.
+func ByProviderName(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldProviderName, opts...).ToFunc()
 }

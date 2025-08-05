@@ -40,7 +40,9 @@ type User struct {
 	// Provider holds the value of the "provider" field.
 	Provider string `json:"provider,omitempty"`
 	// ProviderID holds the value of the "provider_id" field.
-	ProviderID   string `json:"provider_id,omitempty"`
+	ProviderID string `json:"provider_id,omitempty"`
+	// ProviderName holds the value of the "provider_name" field.
+	ProviderName string `json:"provider_name,omitempty"`
 	selectValues sql.SelectValues
 }
 
@@ -53,7 +55,7 @@ func (*User) scanValues(columns []string) ([]any, error) {
 			values[i] = new(sql.NullBool)
 		case user.FieldID:
 			values[i] = new(sql.NullInt64)
-		case user.FieldUsername, user.FieldEmail, user.FieldPasswordHash, user.FieldFullName, user.FieldRole, user.FieldExternalID, user.FieldAvatarURL, user.FieldProvider, user.FieldProviderID:
+		case user.FieldUsername, user.FieldEmail, user.FieldPasswordHash, user.FieldFullName, user.FieldRole, user.FieldExternalID, user.FieldAvatarURL, user.FieldProvider, user.FieldProviderID, user.FieldProviderName:
 			values[i] = new(sql.NullString)
 		case user.FieldCreatedAt, user.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
@@ -150,6 +152,12 @@ func (_m *User) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				_m.ProviderID = value.String
 			}
+		case user.FieldProviderName:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field provider_name", values[i])
+			} else if value.Valid {
+				_m.ProviderName = value.String
+			}
 		default:
 			_m.selectValues.Set(columns[i], values[i])
 		}
@@ -221,6 +229,9 @@ func (_m *User) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("provider_id=")
 	builder.WriteString(_m.ProviderID)
+	builder.WriteString(", ")
+	builder.WriteString("provider_name=")
+	builder.WriteString(_m.ProviderName)
 	builder.WriteByte(')')
 	return builder.String()
 }

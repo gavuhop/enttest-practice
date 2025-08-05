@@ -82,6 +82,7 @@ var (
 		{Name: "avatar_url", Type: field.TypeString, Nullable: true},
 		{Name: "provider", Type: field.TypeString, Nullable: true, Default: "local"},
 		{Name: "provider_id", Type: field.TypeString, Nullable: true},
+		{Name: "provider_name", Type: field.TypeString, Nullable: true},
 	}
 	// UsersTable holds the schema information for the "users" table.
 	UsersTable = &schema.Table{

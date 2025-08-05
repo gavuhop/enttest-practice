@@ -2467,6 +2467,7 @@ type UserMutation struct {
 	avatar_url    *string
 	provider      *string
 	provider_id   *string
+	provider_name *string
 	clearedFields map[string]struct{}
 	done          bool
 	oldValue      func(context.Context) (*User, error)
@@ -3068,6 +3069,55 @@ func (m *UserMutation) ResetProviderID() {
 	delete(m.clearedFields, user.FieldProviderID)
 }
 
+// SetProviderName sets the "provider_name" field.
+func (m *UserMutation) SetProviderName(s string) {
+	m.provider_name = &s
+}
+
+// ProviderName returns the value of the "provider_name" field in the mutation.
+func (m *UserMutation) ProviderName() (r string, exists bool) {
+	v := m.provider_name
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldProviderName returns the old "provider_name" field's value of the User entity.
+// If the User object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *UserMutation) OldProviderName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldProviderName is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldProviderName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldProviderName: %w", err)
+	}
+	return oldValue.ProviderName, nil
+}
+
+// ClearProviderName clears the value of the "provider_name" field.
+func (m *UserMutation) ClearProviderName() {
+	m.provider_name = nil
+	m.clearedFields[user.FieldProviderName] = struct{}{}
+}
+
+// ProviderNameCleared returns if the "provider_name" field was cleared in this mutation.
+func (m *UserMutation) ProviderNameCleared() bool {
+	_, ok := m.clearedFields[user.FieldProviderName]
+	return ok
+}
+
+// ResetProviderName resets all changes to the "provider_name" field.
+func (m *UserMutation) ResetProviderName() {
+	m.provider_name = nil
+	delete(m.clearedFields, user.FieldProviderName)
+}
+
 // Where appends a list predicates to the UserMutation builder.
 func (m *UserMutation) Where(ps ...predicate.User) {
 	m.predicates = append(m.predicates, ps...)
@@ -3102,7 +3152,7 @@ func (m *UserMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *UserMutation) Fields() []string {
-	fields := make([]string, 0, 12)
+	fields := make([]string, 0, 13)
 	if m.username != nil {
 		fields = append(fields, user.FieldUsername)
 	}
@@ -3139,6 +3189,9 @@ func (m *UserMutation) Fields() []string {
 	if m.provider_id != nil {
 		fields = append(fields, user.FieldProviderID)
 	}
+	if m.provider_name != nil {
+		fields = append(fields, user.FieldProviderName)
+	}
 	return fields
 }
 
@@ -3171,6 +3224,8 @@ func (m *UserMutation) Field(name string) (ent.Value, bool) {
 		return m.Provider()
 	case user.FieldProviderID:
 		return m.ProviderID()
+	case user.FieldProviderName:
+		return m.ProviderName()
 	}
 	return nil, false
 }
@@ -3204,6 +3259,8 @@ func (m *UserMutation) OldField(ctx context.Context, name string) (ent.Value, er
 		return m.OldProvider(ctx)
 	case user.FieldProviderID:
 		return m.OldProviderID(ctx)
+	case user.FieldProviderName:
+		return m.OldProviderName(ctx)
 	}
 	return nil, fmt.Errorf("unknown User field %s", name)
 }
@@ -3297,6 +3354,13 @@ func (m *UserMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetProviderID(v)
 		return nil
+	case user.FieldProviderName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetProviderName(v)
+		return nil
 	}
 	return fmt.Errorf("unknown User field %s", name)
 }
@@ -3342,6 +3406,9 @@ func (m *UserMutation) ClearedFields() []string {
 	if m.FieldCleared(user.FieldProviderID) {
 		fields = append(fields, user.FieldProviderID)
 	}
+	if m.FieldCleared(user.FieldProviderName) {
+		fields = append(fields, user.FieldProviderName)
+	}
 	return fields
 }
 
@@ -3370,6 +3437,9 @@ func (m *UserMutation) ClearField(name string) error {
 		return nil
 	case user.FieldProviderID:
 		m.ClearProviderID()
+		return nil
+	case user.FieldProviderName:
+		m.ClearProviderName()
 		return nil
 	}
 	return fmt.Errorf("unknown User nullable field %s", name)
@@ -3414,6 +3484,9 @@ func (m *UserMutation) ResetField(name string) error {
 		return nil
 	case user.FieldProviderID:
 		m.ResetProviderID()
+		return nil
+	case user.FieldProviderName:
+		m.ResetProviderName()
 		return nil
 	}
 	return fmt.Errorf("unknown User field %s", name)

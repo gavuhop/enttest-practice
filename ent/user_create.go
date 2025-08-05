@@ -156,6 +156,20 @@ func (_c *UserCreate) SetNillableProviderID(v *string) *UserCreate {
 	return _c
 }
 
+// SetProviderName sets the "provider_name" field.
+func (_c *UserCreate) SetProviderName(v string) *UserCreate {
+	_c.mutation.SetProviderName(v)
+	return _c
+}
+
+// SetNillableProviderName sets the "provider_name" field if the given value is not nil.
+func (_c *UserCreate) SetNillableProviderName(v *string) *UserCreate {
+	if v != nil {
+		_c.SetProviderName(*v)
+	}
+	return _c
+}
+
 // Mutation returns the UserMutation object of the builder.
 func (_c *UserCreate) Mutation() *UserMutation {
 	return _c.mutation
@@ -334,6 +348,10 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 	if value, ok := _c.mutation.ProviderID(); ok {
 		_spec.SetField(user.FieldProviderID, field.TypeString, value)
 		_node.ProviderID = value
+	}
+	if value, ok := _c.mutation.ProviderName(); ok {
+		_spec.SetField(user.FieldProviderName, field.TypeString, value)
+		_node.ProviderName = value
 	}
 	return _node, _spec
 }

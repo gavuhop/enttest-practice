@@ -204,6 +204,26 @@ func (_u *UserUpdate) ClearProviderID() *UserUpdate {
 	return _u
 }
 
+// SetProviderName sets the "provider_name" field.
+func (_u *UserUpdate) SetProviderName(v string) *UserUpdate {
+	_u.mutation.SetProviderName(v)
+	return _u
+}
+
+// SetNillableProviderName sets the "provider_name" field if the given value is not nil.
+func (_u *UserUpdate) SetNillableProviderName(v *string) *UserUpdate {
+	if v != nil {
+		_u.SetProviderName(*v)
+	}
+	return _u
+}
+
+// ClearProviderName clears the value of the "provider_name" field.
+func (_u *UserUpdate) ClearProviderName() *UserUpdate {
+	_u.mutation.ClearProviderName()
+	return _u
+}
+
 // Mutation returns the UserMutation object of the builder.
 func (_u *UserUpdate) Mutation() *UserMutation {
 	return _u.mutation
@@ -334,6 +354,12 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	}
 	if _u.mutation.ProviderIDCleared() {
 		_spec.ClearField(user.FieldProviderID, field.TypeString)
+	}
+	if value, ok := _u.mutation.ProviderName(); ok {
+		_spec.SetField(user.FieldProviderName, field.TypeString, value)
+	}
+	if _u.mutation.ProviderNameCleared() {
+		_spec.ClearField(user.FieldProviderName, field.TypeString)
 	}
 	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
@@ -531,6 +557,26 @@ func (_u *UserUpdateOne) ClearProviderID() *UserUpdateOne {
 	return _u
 }
 
+// SetProviderName sets the "provider_name" field.
+func (_u *UserUpdateOne) SetProviderName(v string) *UserUpdateOne {
+	_u.mutation.SetProviderName(v)
+	return _u
+}
+
+// SetNillableProviderName sets the "provider_name" field if the given value is not nil.
+func (_u *UserUpdateOne) SetNillableProviderName(v *string) *UserUpdateOne {
+	if v != nil {
+		_u.SetProviderName(*v)
+	}
+	return _u
+}
+
+// ClearProviderName clears the value of the "provider_name" field.
+func (_u *UserUpdateOne) ClearProviderName() *UserUpdateOne {
+	_u.mutation.ClearProviderName()
+	return _u
+}
+
 // Mutation returns the UserMutation object of the builder.
 func (_u *UserUpdateOne) Mutation() *UserMutation {
 	return _u.mutation
@@ -691,6 +737,12 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 	}
 	if _u.mutation.ProviderIDCleared() {
 		_spec.ClearField(user.FieldProviderID, field.TypeString)
+	}
+	if value, ok := _u.mutation.ProviderName(); ok {
+		_spec.SetField(user.FieldProviderName, field.TypeString, value)
+	}
+	if _u.mutation.ProviderNameCleared() {
+		_spec.ClearField(user.FieldProviderName, field.TypeString)
 	}
 	_node = &User{config: _u.config}
 	_spec.Assign = _node.assignValues

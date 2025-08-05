@@ -114,6 +114,11 @@ func ProviderID(v string) predicate.User {
 	return predicate.User(sql.FieldEQ(FieldProviderID, v))
 }
 
+// ProviderName applies equality check predicate on the "provider_name" field. It's identical to ProviderNameEQ.
+func ProviderName(v string) predicate.User {
+	return predicate.User(sql.FieldEQ(FieldProviderName, v))
+}
+
 // UsernameEQ applies the EQ predicate on the "username" field.
 func UsernameEQ(v string) predicate.User {
 	return predicate.User(sql.FieldEQ(FieldUsername, v))
@@ -837,6 +842,81 @@ func ProviderIDEqualFold(v string) predicate.User {
 // ProviderIDContainsFold applies the ContainsFold predicate on the "provider_id" field.
 func ProviderIDContainsFold(v string) predicate.User {
 	return predicate.User(sql.FieldContainsFold(FieldProviderID, v))
+}
+
+// ProviderNameEQ applies the EQ predicate on the "provider_name" field.
+func ProviderNameEQ(v string) predicate.User {
+	return predicate.User(sql.FieldEQ(FieldProviderName, v))
+}
+
+// ProviderNameNEQ applies the NEQ predicate on the "provider_name" field.
+func ProviderNameNEQ(v string) predicate.User {
+	return predicate.User(sql.FieldNEQ(FieldProviderName, v))
+}
+
+// ProviderNameIn applies the In predicate on the "provider_name" field.
+func ProviderNameIn(vs ...string) predicate.User {
+	return predicate.User(sql.FieldIn(FieldProviderName, vs...))
+}
+
+// ProviderNameNotIn applies the NotIn predicate on the "provider_name" field.
+func ProviderNameNotIn(vs ...string) predicate.User {
+	return predicate.User(sql.FieldNotIn(FieldProviderName, vs...))
+}
+
+// ProviderNameGT applies the GT predicate on the "provider_name" field.
+func ProviderNameGT(v string) predicate.User {
+	return predicate.User(sql.FieldGT(FieldProviderName, v))
+}
+
+// ProviderNameGTE applies the GTE predicate on the "provider_name" field.
+func ProviderNameGTE(v string) predicate.User {
+	return predicate.User(sql.FieldGTE(FieldProviderName, v))
+}
+
+// ProviderNameLT applies the LT predicate on the "provider_name" field.
+func ProviderNameLT(v string) predicate.User {
+	return predicate.User(sql.FieldLT(FieldProviderName, v))
+}
+
+// ProviderNameLTE applies the LTE predicate on the "provider_name" field.
+func ProviderNameLTE(v string) predicate.User {
+	return predicate.User(sql.FieldLTE(FieldProviderName, v))
+}
+
+// ProviderNameContains applies the Contains predicate on the "provider_name" field.
+func ProviderNameContains(v string) predicate.User {
+	return predicate.User(sql.FieldContains(FieldProviderName, v))
+}
+
+// ProviderNameHasPrefix applies the HasPrefix predicate on the "provider_name" field.
+func ProviderNameHasPrefix(v string) predicate.User {
+	return predicate.User(sql.FieldHasPrefix(FieldProviderName, v))
+}
+
+// ProviderNameHasSuffix applies the HasSuffix predicate on the "provider_name" field.
+func ProviderNameHasSuffix(v string) predicate.User {
+	return predicate.User(sql.FieldHasSuffix(FieldProviderName, v))
+}
+
+// ProviderNameIsNil applies the IsNil predicate on the "provider_name" field.
+func ProviderNameIsNil() predicate.User {
+	return predicate.User(sql.FieldIsNull(FieldProviderName))
+}
+
+// ProviderNameNotNil applies the NotNil predicate on the "provider_name" field.
+func ProviderNameNotNil() predicate.User {
+	return predicate.User(sql.FieldNotNull(FieldProviderName))
+}
+
+// ProviderNameEqualFold applies the EqualFold predicate on the "provider_name" field.
+func ProviderNameEqualFold(v string) predicate.User {
+	return predicate.User(sql.FieldEqualFold(FieldProviderName, v))
+}
+
+// ProviderNameContainsFold applies the ContainsFold predicate on the "provider_name" field.
+func ProviderNameContainsFold(v string) predicate.User {
+	return predicate.User(sql.FieldContainsFold(FieldProviderName, v))
 }
 
 // And groups predicates with the AND operator between them.
