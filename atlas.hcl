@@ -18,8 +18,8 @@ env "dev" {
 
 env "prod" {
   src = "ent://ent/schema"
-  dev = "mysql://user:password@localhost:3307/dbname_dev"
-  url = "mysql://user:password@localhost:3306/dbname"
+  dev = "mysql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}_dev"
+  url = "mysql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?parseTime=true"
   migration {
     dir = "file://migrations"
   }
